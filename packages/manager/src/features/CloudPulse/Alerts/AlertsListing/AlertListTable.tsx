@@ -23,7 +23,7 @@ import { AlertListingTableLabelMap } from './constants';
 import { GroupedAlertsTable } from './GroupedAlertsTable';
 
 import type { Item } from '../constants';
-import type { APIError, Alert, AlertServiceType } from '@linode/api-v4';
+import type { Alert, AlertServiceType, APIError } from '@linode/api-v4';
 
 export interface AlertsListTableProps {
   /**
@@ -151,27 +151,27 @@ export const AlertsListTable = React.memo((props: AlertsListTableProps) => {
                 <>
                   <Grid2 sx={{ marginTop: 2 }}>
                     <Table
-                      tableClass={
-                        alertsGroupedByTag ? 'MuiTable-groupByTag' : ''
-                      }
                       colCount={7}
                       data-qa="alert-table"
                       size="small"
+                      tableClass={
+                        alertsGroupedByTag ? 'MuiTable-groupByTag' : ''
+                      }
                     >
                       <TableHead>
                         <TableRow>
                           {AlertListingTableLabelMap.map((value) => (
                             <TableSortCell
+                              active={orderBy === value.label}
+                              data-qa-header={value.label}
+                              data-qa-sorting={value.label}
+                              direction={order}
                               handleClick={(orderBy, order) => {
                                 if (order) {
                                   handleOrderChange(orderBy, order);
                                   handlePageChange(1);
                                 }
                               }}
-                              active={orderBy === value.label}
-                              data-qa-header={value.label}
-                              data-qa-sorting={value.label}
-                              direction={order}
                               key={value.label}
                               label={value.label}
                               noWrap
@@ -190,10 +190,10 @@ export const AlertsListTable = React.memo((props: AlertsListTableProps) => {
                               }}
                             >
                               <GroupByTagToggle
+                                isGroupedByTag={alertsGroupedByTag ?? false}
                                 toggleGroupByTag={
                                   toggleAlertsGroupedByTag ?? (() => false)
                                 }
-                                isGroupedByTag={alertsGroupedByTag ?? false}
                               />
                             </Box>
                           </TableCell>
@@ -228,6 +228,8 @@ export const AlertsListTable = React.memo((props: AlertsListTableProps) => {
                   </Grid2>
                   {!alertsGroupedByTag && (
                     <PaginationFooter
+                      count={count}
+                      eventCategory="Alert Definitions Table"
                       handlePageChange={(page: number) => {
                         handlePageChange(page);
                         requestAnimationFrame(() => {
@@ -241,8 +243,6 @@ export const AlertsListTable = React.memo((props: AlertsListTableProps) => {
                           scrollToElement();
                         });
                       }}
-                      count={count}
-                      eventCategory="Alert Definitions Table"
                       page={page}
                       pageSize={pageSize}
                       sx={{ border: 0 }}
@@ -255,15 +255,15 @@ export const AlertsListTable = React.memo((props: AlertsListTableProps) => {
         }}
       </OrderBy>
       <AlertConfirmationDialog
-        message={`Are you sure you want to ${
-          isEnabled ? 'disable' : 'enable'
-        } this alert definition?`}
         alert={selectedAlert}
         handleCancel={handleCancel}
         handleConfirm={handleConfirm}
         isEnabled={isEnabled}
         isLoading={isUpdating}
         isOpen={isDialogOpen}
+        message={`Are you sure you want to ${
+          isEnabled ? 'disable' : 'enable'
+        } this alert definition?`}
       />
     </>
   );

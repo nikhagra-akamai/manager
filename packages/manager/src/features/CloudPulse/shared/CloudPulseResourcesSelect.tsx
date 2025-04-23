@@ -59,7 +59,11 @@ export const CloudPulseResourcesSelect = React.memo(
       },
     };
 
-    const { data: resources, isError, isLoading } = useResourcesQuery(
+    const {
+      data: resources,
+      isError,
+      isLoading,
+    } = useResourcesQuery(
       disabled !== undefined ? !disabled : Boolean(region && resourceType),
       resourceType,
       {},
@@ -75,9 +79,8 @@ export const CloudPulseResourcesSelect = React.memo(
           }
     );
 
-    const [selectedResources, setSelectedResources] = React.useState<
-      CloudPulseResources[]
-    >();
+    const [selectedResources, setSelectedResources] =
+      React.useState<CloudPulseResources[]>();
 
     /**
      * This is used to track the open state of the autocomplete and useRef optimizes the re-renders that this component goes through and it is used for below
@@ -131,9 +134,21 @@ export const CloudPulseResourcesSelect = React.memo(
 
     return (
       <Autocomplete
+        autoHighlight
+        clearOnBlur
+        data-testid="resource-select"
+        disabled={disabled}
+        disableSelectAll={resourcesLimitReached} // Select_All option will not be available if number of resources are higher than resource selection limit
+        errorText={isError ? `Failed to fetch ${label || 'Resources'}.` : ''}
         helperText={
           !isError ? `Select up to ${maxResourceSelectionLimit} ${label}` : ''
         }
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        label={label || 'Resources'}
+        limitTags={1}
+        loading={isLoading}
+        multiple
+        noMarginTop
         onChange={(e, resourceSelections) => {
           setSelectedResources(resourceSelections);
 
@@ -148,6 +163,7 @@ export const CloudPulseResourcesSelect = React.memo(
         onOpen={() => {
           isAutocompleteOpen.current = true;
         }}
+        options={getResourcesList}
         placeholder={
           selectedResources?.length ? '' : placeholder || 'Select Resources'
         }
@@ -201,19 +217,6 @@ export const CloudPulseResourcesSelect = React.memo(
             },
           },
         }}
-        autoHighlight
-        clearOnBlur
-        data-testid="resource-select"
-        disableSelectAll={resourcesLimitReached} // Select_All option will not be available if number of resources are higher than resource selection limit
-        disabled={disabled}
-        errorText={isError ? `Failed to fetch ${label || 'Resources'}.` : ''}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        label={label || 'Resources'}
-        limitTags={1}
-        loading={isLoading}
-        multiple
-        noMarginTop
-        options={getResourcesList}
         value={selectedResources ?? []}
       />
     );

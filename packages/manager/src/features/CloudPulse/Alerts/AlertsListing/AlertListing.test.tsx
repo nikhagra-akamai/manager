@@ -52,12 +52,8 @@ describe('Alert Listing', () => {
       isLoading: false,
       status: 'success',
     });
-    const {
-      getAllByLabelText,
-      getByLabelText,
-      getByTestId,
-      getByText,
-    } = renderWithTheme(<AlertListing />);
+    const { getAllByLabelText, getByLabelText, getByTestId, getByText } =
+      renderWithTheme(<AlertListing />);
     expect(getByText('Alert Name')).toBeInTheDocument();
     expect(getByText('Service')).toBeInTheDocument();
     expect(getByText('Status')).toBeInTheDocument();

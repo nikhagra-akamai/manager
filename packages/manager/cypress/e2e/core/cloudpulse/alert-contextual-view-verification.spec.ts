@@ -75,7 +75,7 @@ const alerts = alertConfigs.flatMap((config) => {
   // Create the alert
   const alert = alertFactory.build({
     created_by: config.created_by,
-    entity_ids: ['1'],  // Default to ['1']
+    entity_ids: ['1'], // Default to ['1']
     rule_criteria: {
       rules: [
         {
@@ -102,7 +102,6 @@ const alerts = alertConfigs.flatMap((config) => {
 
   return alert;
 });
-
 
 // Verify Sorting Function
 const verifyTableSorting = (
@@ -232,7 +231,9 @@ it.skip('should verify sorting, alert management, and search functionality for c
     );
   });
 
-  cy.findByPlaceholderText('Search for Alerts').should('be.visible').type('Alert-4');
+  cy.findByPlaceholderText('Search for Alerts')
+    .should('be.visible')
+    .type('Alert-4');
   // Disable Alert
   cy.get('[data-qa-alert-cell="4"]')
     .find('[data-qa-toggle="true"]')

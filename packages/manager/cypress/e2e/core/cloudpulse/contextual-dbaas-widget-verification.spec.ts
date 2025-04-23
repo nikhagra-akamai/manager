@@ -46,14 +46,8 @@ import type { CloudPulseMetricsResponse, Database } from '@linode/api-v4';
 const expectedGranularityArray = ['1 day', '1 hr', '5 min'];
 const timeDurationToSelect = 'Last 24 Hours';
 
-const {
-  clusterName,
-  dashboardName,
-  engine,
-  metrics,
-  region,
-  serviceType,
-} = widgetDetails.dbaas;
+const { clusterName, dashboardName, engine, metrics, region, serviceType } =
+  widgetDetails.dbaas;
 
 const dashboard = dashboardFactory.build({
   id: 1,

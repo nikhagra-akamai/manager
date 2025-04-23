@@ -199,21 +199,19 @@ export const generateGraphData = (props: GraphDataOptionsProps): GraphData => {
 
   const maxUnit = generateMaxUnit(legendRowsData, unit);
   const dimensions = Object.entries(dimension)
-    .map(
-      ([timestamp, resource]): DataSet => {
-        const rolledUpData = Object.entries(resource).reduce(
-          (oldValue, newValue) => {
-            return {
-              ...oldValue,
-              [newValue[0]]: convertValueToUnit(newValue[1], maxUnit),
-            };
-          },
-          {}
-        );
+    .map(([timestamp, resource]): DataSet => {
+      const rolledUpData = Object.entries(resource).reduce(
+        (oldValue, newValue) => {
+          return {
+            ...oldValue,
+            [newValue[0]]: convertValueToUnit(newValue[1], maxUnit),
+          };
+        },
+        {}
+      );
 
-        return { timestamp: Number(timestamp), ...rolledUpData };
-      }
-    )
+      return { timestamp: Number(timestamp), ...rolledUpData };
+    })
     .sort(
       (dimension1, dimension2) => dimension1.timestamp - dimension2.timestamp
     );
@@ -356,18 +354,18 @@ export const getTimeDurationFromPreset = (
   preset?: string
 ): TimeDuration | undefined => {
   switch (preset) {
-    case '30minutes':
-      return { unit: 'min', value: 30 };
     case '1hour':
       return { unit: 'hr', value: 1 };
-    case '24hours':
-      return { unit: 'hr', value: 24 };
-    case '12hours':
-      return { unit: 'hr', value: 12 };
     case '7days':
       return { unit: 'days', value: 7 };
+    case '12hours':
+      return { unit: 'hr', value: 12 };
+    case '24hours':
+      return { unit: 'hr', value: 24 };
     case '30days':
       return { unit: 'days', value: 30 };
+    case '30minutes':
+      return { unit: 'min', value: 30 };
     default:
       return undefined;
   }

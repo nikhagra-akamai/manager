@@ -29,10 +29,11 @@ export interface AlertRouteParams {
 export const AlertDetail = () => {
   const { alertId, serviceType } = useParams<AlertRouteParams>();
 
-  const { data: alertDetails, isError, isLoading } = useAlertDefinitionQuery(
-    alertId,
-    serviceType
-  );
+  const {
+    data: alertDetails,
+    isError,
+    isLoading,
+  } = useAlertDefinitionQuery(alertId, serviceType);
 
   const { crumbOverrides, pathname } = React.useMemo(() => {
     const overrides = [
@@ -112,24 +113,24 @@ export const AlertDetail = () => {
             <AlertDetailOverview alertDetails={alertDetails} />
           </Box>
           <Box
+            data-qa-section="Criteria"
+            flexBasis="50%"
+            maxHeight={sectionMaxHeight}
             sx={{
               ...getAlertBoxStyles(theme),
               overflow: 'auto',
             }}
-            data-qa-section="Criteria"
-            flexBasis="50%"
-            maxHeight={sectionMaxHeight}
           >
             <AlertDetailCriteria alertDetails={alertDetails} />
           </Box>
         </Box>
         <Box
+          data-qa-section="Resources"
+          maxHeight={sectionMaxHeight}
           sx={{
             ...getAlertBoxStyles(theme),
             overflow: 'auto',
           }}
-          data-qa-section="Resources"
-          maxHeight={sectionMaxHeight}
         >
           <AlertResources
             alertClass={alertClass}
@@ -139,11 +140,11 @@ export const AlertDetail = () => {
           />
         </Box>
         <Box
+          data-qa-section="Notification Channels"
           sx={{
             ...getAlertBoxStyles(theme),
             overflow: 'auto',
           }}
-          data-qa-section="Notification Channels"
         >
           <AlertDetailNotification
             channelIds={alertDetails.alert_channels.map(({ id }) => id)}

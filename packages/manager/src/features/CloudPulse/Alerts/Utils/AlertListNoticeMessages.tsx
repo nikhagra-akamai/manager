@@ -31,13 +31,13 @@ export const AlertListNoticeMessages = (
         >
           {errorList.map((error, index) => (
             <ListItem
+              data-testid="alert_notice_message_list"
+              key={index}
               sx={(theme) => ({
                 display: 'list-item',
                 pl: theme.spacingFunction(4),
                 py: theme.spacingFunction(4),
               })}
-              data-testid="alert_notice_message_list"
-              key={index}
             >
               {error}
             </ListItem>
@@ -50,10 +50,10 @@ export const AlertListNoticeMessages = (
   return (
     <Notice data-alert-notice style={style} sx={sx} variant={variant}>
       <Typography
+        data-testid="alert_message_notice"
         sx={(theme) => ({
           fontFamily: theme.tokens.font.FontWeight.Extrabold,
         })}
-        data-testid="alert_message_notice"
       >
         {errorList[0]}
       </Typography>
