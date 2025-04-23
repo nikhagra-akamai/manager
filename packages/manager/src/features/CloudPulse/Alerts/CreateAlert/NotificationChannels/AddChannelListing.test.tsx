@@ -80,7 +80,7 @@ describe('Channel Listing component', () => {
   it('should show tooltip when the max limit of notification channels is reached', async () => {
     // Mock the `notificationChannelWatcher` length to simulate the max limit
     const mockMaxLimit = 5;
-    const { getByText, getByRole, findByText } =
+    const { getByRole, findByText } =
       renderWithThemeAndHookFormContext<CreateAlertDefinitionForm>({
         component: <AddChannelListing name="channel_ids" />,
         useFormOptions: {
