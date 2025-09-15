@@ -202,7 +202,7 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
     cy.wait('@fetchPreferences');
     // validate the API calls are going with intended payload
     // Select a time duration from the autocomplete input.
-    ui.button.findByTitle('last 30 minutes').as('startDateInput');
+    ui.button.findByTitle('last day').as('startDateInput');
     cy.get('@startDateInput').click();
 
     ui.button.findByTitle('last 7 days').click();
