@@ -250,7 +250,9 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
 
     cy.wait(1000);
     // --- Select start date ---
-    cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+    ui.button.findByTitle('last 30 minutes').as('startDateInput');
+    cy.get('@startDateInput').scrollIntoView();
+
     cy.get('@startDateInput').click();
     cy.get('[role="dialog"]').within(() => {
       cy.findAllByText(startDay).first().click();
@@ -408,7 +410,10 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
       'getPresets'
     );
 
+    cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+
     cy.get('@startDateInput').click();
+
     ui.button.findByTitle('last 30 days').click();
 
     cy.get('[data-qa-buttons="apply"]')
@@ -435,8 +440,11 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
 
   timeRanges.forEach((range) => {
     it(`Select and validate the functionality of the "${range.label}" preset from the "Time Range" dropdown`, () => {
-      cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+      ui.button.findByTitle('last 30 minutes').as('startDateInput');
+      cy.get('@startDateInput').scrollIntoView();
+
       cy.get('@startDateInput').click();
+
       ui.button.findByTitle(range.label).click();
       cy.get('[data-qa-buttons="apply"]')
         .should('be.visible')
@@ -468,7 +476,9 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
   it('Select the "Last Month" preset from the "Time Range" dropdown and verify its functionality.', () => {
     const { end, start } = getLastMonthRange();
 
-    cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+    ui.button.findByTitle('last 30 minutes').as('startDateInput');
+    cy.get('@startDateInput').scrollIntoView();
+
     cy.get('@startDateInput').click();
     ui.button.findByTitle('last month').click();
     cy.get('[data-qa-buttons="apply"]')
@@ -496,8 +506,11 @@ describe('Integration tests for verifying Cloudpulse custom and preset configura
   it('Select the "This Month" preset from the "Time Range" dropdown and verify its functionality.', () => {
     const { end, start } = getThisMonthRange();
 
-    cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+    ui.button.findByTitle('last 30 minutes').as('startDateInput');
+    cy.get('@startDateInput').scrollIntoView();
+
     cy.get('@startDateInput').click();
+
     ui.button.findByTitle('this month').click();
     cy.get('[data-qa-buttons="apply"]')
       .should('be.visible')

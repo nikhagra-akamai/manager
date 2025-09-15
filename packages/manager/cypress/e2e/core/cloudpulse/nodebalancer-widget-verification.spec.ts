@@ -182,7 +182,7 @@ describe('Integration Tests for Nodebalancer Dashboard ', () => {
       .click();
 
     // Select a time duration from the autocomplete input.
-    cy.get('[aria-labelledby="start-date"]').as('startDateInput');
+    ui.button.findByTitle('last 30 minutes').as('startDateInput');
 
     cy.get('@startDateInput').click();
 

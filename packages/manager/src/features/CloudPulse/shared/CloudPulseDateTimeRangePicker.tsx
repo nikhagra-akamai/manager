@@ -101,6 +101,7 @@ export const CloudPulseDateTimeRangePicker = React.memo(
         {showPreset && (
           <Button
             buttonType="secondary"
+            data-qa-buttons="true"
             data-testid="preset-button"
             endIcon={
               <CalendarIcon
