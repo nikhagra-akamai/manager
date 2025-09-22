@@ -1,3 +1,4 @@
+import { DateTimeRangePicker } from '@linode/ui';
 import { DateTime } from 'luxon';
 
 import type { DateTimeWithPreset } from '@linode/api-v4';
@@ -9,7 +10,7 @@ export const defaultTimeDuration = (timezone?: string): DateTimeWithPreset => {
 
   return {
     end: date.toISO() ?? '',
-    preset: 'last 30 minutes',
+    preset: DateTimeRangePicker.PRESET_LABELS.LAST_30_MINUTES,
     start: date.minus({ minutes: 30 }).toISO() ?? '',
     timeZone: timezone,
   };
